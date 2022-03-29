@@ -16,6 +16,7 @@ class ActivationTestSeeder extends Seeder {
             'name' => 'test'
         ]);
         $project->codes()->create([
+            'title' => 'print_function',
             'language' => 'python',
             'content' => base64_encode(<<<EOF
                 def a(x):

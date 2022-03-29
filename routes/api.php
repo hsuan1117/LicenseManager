@@ -19,3 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/activate', [\App\Http\Controllers\ActivationController::class, 'activate']);
+Route::post('/code', [\App\Http\Controllers\ActivationController::class, 'code']);

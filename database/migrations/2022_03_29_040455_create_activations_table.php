@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('activations', function (Blueprint $table) {
             $table->id();
-            $table->string('token');
+            $table->bigInteger('token_id');
 
             $table->ipAddress('activated_ip');
             $table->text('activated_uname');

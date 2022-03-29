@@ -16,4 +16,8 @@ class Token extends Model
     public function project(){
         return $this->belongsTo(Project::class);
     }
+
+    public function activations(){
+        return $this->hasMany(Activation::class);
+    }
 }

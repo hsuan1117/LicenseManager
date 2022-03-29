@@ -16,7 +16,6 @@ class ActivationTest extends TestCase {
     public function test_activation() {
         $response = $this->postJson('/api/activate', [
             'token' => 'TEST_TOKEN',
-            'activated_ip' => 'Linux',
             'activated_uname' => 'test',
             'activated_cpu' => 'Intel'
         ]);
@@ -26,21 +25,39 @@ class ActivationTest extends TestCase {
 
     public function test_activation_exceed() {
         $this->postJson('/api/activate', [
-            'token' => 'TEST_TOKEN',
+            'token' => 'TEST_TOKEN_LIMIT',
             'activated_uname' => 'test',
             'activated_cpu' => 'Intel'
         ])->assertStatus(200);
 
         $this->postJson('/api/activate', [
-            'token' => 'TEST_TOKEN',
+            'token' => 'TEST_TOKEN_LIMIT',
             'activated_uname' => 'test2',
             'activated_cpu' => 'Intel'
         ])->assertStatus(200);
 
         $this->postJson('/api/activate', [
-            'token' => 'TEST_TOKEN',
+            'token' => 'TEST_TOKEN_LIMIT',
             'activated_uname' => 'test3',
             'activated_cpu' => 'Intel'
         ])->assertStatus(403);
+
+    }
+
+    public function test_get_code() {
+        $this->postJson('/api/activate', [
+            'token' => 'TEST_TOKEN',
+            'activated_uname' => 'test',
+            'activated_cpu' => 'Intel'
+        ])->assertStatus(200);
+
+        $response = $this->postJson('/api/code', [
+            'token' => 'TEST_TOKEN',
+            'activated_uname' => 'test',
+            'activated_cpu' => 'Intel',
+            'title' => 'print_function'
+        ]);
+        $response->assertStatus(200);
+        dd($response->getContent());
     }
 }

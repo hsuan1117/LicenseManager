@@ -10,4 +10,8 @@ class Activation extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function token(){
+        return $this->belongsTo(Token::class);
+    }
 }

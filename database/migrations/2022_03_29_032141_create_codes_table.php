@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('codes', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('project_id');
+            $table->string('title');
             $table->string('language');
             $table->longText('content');
             $table->timestamps();
