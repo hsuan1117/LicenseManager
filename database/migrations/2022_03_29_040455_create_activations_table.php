@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->string('token');
 
-            $table->dateTime('activated_at');
             $table->ipAddress('activated_ip');
             $table->text('activated_uname');
             $table->longText('activated_cpu');

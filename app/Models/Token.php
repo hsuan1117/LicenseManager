@@ -11,6 +11,8 @@ class Token extends Model
     use HasFactory;
     use Expirable;
 
+    protected $guarded = [];
+
     public function project(){
         return $this->belongsTo(Project::class);
     }

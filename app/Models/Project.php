@@ -9,6 +9,8 @@ class Project extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function codes(){
         return $this->hasMany(Code::class);
     }

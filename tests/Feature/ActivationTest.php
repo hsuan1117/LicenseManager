@@ -19,8 +19,11 @@ class ActivationTest extends TestCase {
      * @return void
      */
     public function test_activation() {
-        $response = $this->postJson('/api/', [
+        $response = $this->postJson('/api/activate', [
             'token' => 'TEST_TOKEN',
+            'activated_ip' => 'Linux',
+            'activated_uname' => 'test',
+            'activated_cpu' => 'Intel'
         ]);
 
         $response->assertStatus(200);
