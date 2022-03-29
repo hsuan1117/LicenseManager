@@ -2,17 +2,15 @@
 
 namespace Tests\Feature;
 
-use Database\Seeders\Test\ActivationTestSeeder;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class ActivationTest extends TestCase {
     use DatabaseTransactions;
 
     protected function setUp(): void {
-        $this->seed(ActivationTestSeeder::class);
+        parent::setUp();
+        $this->seed('Database\\Seeders\\ActivationTestSeeder');
     }
 
     /**
