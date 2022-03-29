@@ -13,11 +13,6 @@ class ActivationTest extends TestCase {
         $this->seed('Database\\Seeders\\ActivationTestSeeder');
     }
 
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
     public function test_activation() {
         $response = $this->postJson('/api/activate', [
             'token' => 'TEST_TOKEN',
@@ -27,5 +22,25 @@ class ActivationTest extends TestCase {
         ]);
 
         $response->assertStatus(200);
+    }
+
+    public function test_activation_exceed() {
+        $this->postJson('/api/activate', [
+            'token' => 'TEST_TOKEN',
+            'activated_uname' => 'test',
+            'activated_cpu' => 'Intel'
+        ])->assertStatus(200);
+
+        $this->postJson('/api/activate', [
+            'token' => 'TEST_TOKEN',
+            'activated_uname' => 'test2',
+            'activated_cpu' => 'Intel'
+        ])->assertStatus(200);
+
+        $this->postJson('/api/activate', [
+            'token' => 'TEST_TOKEN',
+            'activated_uname' => 'test3',
+            'activated_cpu' => 'Intel'
+        ])->assertStatus(403);
     }
 }

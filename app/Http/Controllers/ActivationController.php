@@ -11,18 +11,28 @@ class ActivationController extends Controller {
         $request->input('uname');
         $token = $request->input('token');
 
-        if (
-            Activation::where('token', $token)->count()
-            >=
-            Token::where('content', $token)->first()->activated_limit
-        ) {
-            return response()->json([
-                'status' => 'fail',
-                'message' => 'token usage exceeded limit'
-            ], 403);
-        }
+        if (is_null(Activation::where('token', $token)
+            ->where('activated_ip', $request->ip())
+            ->where('activated_uname', $request->input('activated_uname'))
+            ->where('activated_cpu', $request->input('activated_cpu'))
+            ->first()
+        )) {
 
-        Activation::create($request->all());
+            if (
+                Activation::where('token', $token)->count()
+                >
+                Token::where('content', $token)->first()->activated_limit
+            ) {
+                return response()->json([
+                    'status' => 'fail',
+                    'message' => 'token usage exceeded limit'
+                ], 403);
+            }
+
+            Activation::create(array_merge($request->all(), [
+                'activated_ip' => $request->ip()
+            ]));
+        }
 
         return response()->json([
             'status' => 'success',

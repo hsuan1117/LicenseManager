@@ -23,8 +23,13 @@ class ActivationTestSeeder extends Seeder {
             EOF
             )
         ]);
-        $token = $project->tokens()->create([
-           'content' => 'TEST_TOKEN'
+        $project->tokens()->create([
+            'content' => 'TEST_TOKEN'
+        ]);
+
+        $project->tokens()->create([
+            'content' => 'TEST_TOKEN_LIMIT',
+            'activated_limit' => 2
         ]);
     }
 }
