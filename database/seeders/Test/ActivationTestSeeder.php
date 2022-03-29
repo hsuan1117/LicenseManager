@@ -24,5 +24,8 @@ class ActivationTestSeeder extends Seeder {
             EOF
             )
         ]);
+        $token = $project->tokens()->create([
+           'content' => 'TEST_TOKEN'
+        ]);
     }
 }

@@ -22,7 +22,7 @@ class ActivationTest extends TestCase {
      */
     public function test_activation() {
         $response = $this->postJson('/api/', [
-            'token' => '',
+            'token' => 'TEST_TOKEN',
         ]);
 
         $response->assertStatus(200);

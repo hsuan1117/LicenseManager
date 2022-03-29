@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('activated_uname')->nullable();
             $table->longText('activated_cpu')->nullable();
             $table->bigInteger('activated_limit')->nullable();
+            $table->dateTime('expires_at');
             $table->timestamps();
         });
     }
