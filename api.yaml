@@ -1,0 +1,94 @@
+openapi: 3.0.3
+info:
+  title: API文檔
+  description: API文檔
+  version: 1.0.0
+servers:
+  - url: 'https://license.hsuan.app/api'
+  - url: 'http://localhost:8001/api'
+paths:
+  /activate:
+    post:
+      description: 註冊機器
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActivateMachineInfo'
+
+      responses:
+        '200':
+          description: 成功註冊
+  /code:
+      post:
+        description: 取得程式碼
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CodeInfo'
+        responses:
+          '200':
+            description: 金鑰正確
+          '403':
+            description: 機器未註冊
+          '404':
+            description: 找不到程式碼
+
+components:
+  schemas:
+    ActivateMachineInfo:
+      title: 機器激活資訊
+      required:
+        - token
+        - activated_ip
+        - activated_cpu
+        - activated_uname
+      properties:
+        token:
+          type: string
+          description: 激活金鑰
+
+        activated_ip:
+          type: string
+          description: 激活機器ip
+
+        activated_cpu:
+          type: string
+          description: 激活機器cpu (lscpu)
+
+        activated_uname:
+          type: string
+          description: 激活機器uname
+
+    CodeInfo:
+      title: 程式碼資訊
+      required:
+        - token
+        - title
+        - activated_ip
+        - activated_cpu
+        - activated_uname
+      properties:
+        token:
+          type: string
+          description: 激活金鑰
+
+        title:
+          type: string
+          description: 程式碼標題
+
+        activated_ip:
+          type: string
+          description: 激活機器ip
+
+        activated_cpu:
+          type: string
+          description: 激活機器cpu (lscpu)
+
+        activated_uname:
+          type: string
+          description: 激活機器uname
+

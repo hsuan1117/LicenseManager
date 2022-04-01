@@ -15,8 +15,7 @@ use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Token extends Resource
-{
+class Token extends Resource {
     /**
      * The model the resource corresponds to.
      *
@@ -45,11 +44,10 @@ class Token extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
-    public function fields(Request $request)
-    {
+    public function fields(Request $request) {
         return [
             ID::make(__('ID'), 'id')->sortable(),
             BelongsTo::make('project'),
@@ -57,68 +55,64 @@ class Token extends Resource
             Text::make('name'),
             NovaGenerateString::make('content')->length(12)->excludeRules(['symbols', 'lowercase']),
 
-            Text::make('activated_ip')->nullable(),
-            Text::make('activated_uname')->nullable(),
-            Text::make('activated_cpu')->nullable(),
-            Number::make('activated_limit'),
+            Text::make('限制驗證IP', 'activated_ip')->nullable(),
+            Text::make('限制驗證uname', 'activated_uname')->nullable(),
+            Text::make('限制驗證cpu', 'activated_cpu')->nullable(),
+            Number::make('限制驗證次數', 'activated_limit')->default(function () {
+                return 1;
+            }),
 
-            DateTime::make('expires_at')->nullable(),
+            DateTime::make('過期時間', 'expires_at')->nullable(),
 
-            HasMany::make('activations')
+            HasMany::make('機器激活','activations',Activation::class)
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
-    public function cards(Request $request)
-    {
+    public function cards(Request $request) {
         return [];
     }
 
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
-    public function filters(Request $request)
-    {
+    public function filters(Request $request) {
         return [];
     }
 
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
-    public function lenses(Request $request)
-    {
+    public function lenses(Request $request) {
         return [];
     }
 
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
-    public function actions(Request $request)
-    {
+    public function actions(Request $request) {
         return [];
     }
 
-    public static function label()
-    {
+    public static function label() {
         return '金鑰';
     }
 
-    public static function singularLabel()
-    {
+    public static function singularLabel() {
         return '金鑰';
     }
 }

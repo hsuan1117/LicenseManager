@@ -3,7 +3,10 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Activation extends Resource
@@ -41,6 +44,12 @@ class Activation extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
+
+            Text::make('激活IP','activated_ip')->nullable(),
+            Text::make('激活uname','activated_uname')->nullable(),
+            Text::make('激活cpu','activated_cpu')->nullable(),
+
+            BelongsTo::make('金鑰', 'token', Token::class)
         ];
     }
 
@@ -90,12 +99,12 @@ class Activation extends Resource
 
     public static function label()
     {
-        return '激活';
+        return '機器激活';
     }
 
     public static function singularLabel()
     {
-        return '激活';
+        return '機器激活';
     }
 
     public static function authorizedToCreate(Request $request)
