@@ -40,9 +40,16 @@ class ActivationController extends Controller {
     }
 
     public function code(Request $request) {
-        $token = Token::where('content', $request->input('token'))->firstOrFail();
+        $req_token = $request->input('token');
+        $token = Token::where('content', $req_token)->first();
 
-        if (is_null($token->activations()
+        if (is_null($token)) {
+            \Log::debug("[TokenNotFound] {$req_token}");
+            return response()->json([
+                'status' => 'fail',
+                'message' => 'cannot find token using provided data'
+            ], 404);
+        } else if (is_null($token->activations()
             ->where('activated_ip', $request->ip())
             ->where('activated_uname', $request->input('activated_uname'))
             ->where('activated_cpu', $request->input('activated_cpu'))
@@ -53,8 +60,18 @@ class ActivationController extends Controller {
                 'message' => 'the device is not registered'
             ], 403);
         } else {
-            // TODO: 可以
-            return $token->project->codes()->where('title', $request->input('title'))->firstOrFail();
+            $title = $request->input('title');
+            $code = $token->project->codes()->where('title', $title)->first;
+
+            if (is_null($code)) {
+                \Log::debug("[CodeNotFound] {$title}");
+                return response()->json([
+                    'status' => 'fail',
+                    'message' => 'cannot find code using provided title'
+                ], 404);
+            } else {
+                return $code;
+            }
         }
     }
 }
