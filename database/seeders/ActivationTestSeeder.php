@@ -25,10 +25,12 @@ class ActivationTestSeeder extends Seeder {
             )
         ]);
         $project->tokens()->create([
+            'name' => '測試用金鑰',
             'content' => 'TEST_TOKEN'
         ]);
 
         $project->tokens()->create([
+            'name' => '測試用金鑰2',
             'content' => 'TEST_TOKEN_LIMIT',
             'activated_limit' => 2
         ]);

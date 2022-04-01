@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('project_id');
             $table->string('content');
+            $table->string('name');
             $table->ipAddress('activated_ip')->nullable();
             $table->text('activated_uname')->nullable();
             $table->longText('activated_cpu')->nullable();

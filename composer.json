@@ -7,11 +7,13 @@
     "require": {
         "php": "^8.0.2",
         "alajusticia/laravel-expirable": "^1.6",
+        "coderello/laravel-nova-lang": "^1.8",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.2",
+        "laravel/nova": "*",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
-        "laravel/nova": "*"
+        "gldrenthe89/nova-string-generator-field": "@dev"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -57,6 +59,10 @@
         {
             "type": "path",
             "url": "./nova"
+        },
+        {
+            "type": "path",
+            "url": "./packages/nova-string-generator-field"
         }
     ],
     "config": {
